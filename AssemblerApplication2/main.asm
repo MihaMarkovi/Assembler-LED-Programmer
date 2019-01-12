@@ -36,7 +36,7 @@
 
 call setupUART
 
-;vsa pogovorna besedil
+;pogovorno besedio za uvod
 z_register_hello:
 	ldi zh, high(hello*2)
 	ldi zl, low(hello*2)
@@ -50,6 +50,16 @@ welcome:
 	call send_char
 	rjmp welcome
 
+choose:
+	call get_char
+	call send_char
+	cpi r16, 0x6D
+	breq z_register_manual
+	cpi r16, 0x61
+	breq z_register_automatic_1
+	rjmp z_register_hello
+
+;pogovorno besedilo za manual
 z_register_manual:
 	ldi zh, high(manual*2)
 	ldi zl, low(manual*2)
@@ -62,29 +72,6 @@ manual_program:
 	call send_char
 	rjmp manual_program
 
-z_register_automatic:
-	ldi zh, high(automatic*2)
-	ldi zl, low(automatic*2)
-	rjmp automatic_program
-
-automatic_program:
-	lpm r16, z+
-	cpi r16, 0x00
-	breq z_register_hello
-	call send_char
-	rjmp automatic_program
-	
-;pa preverimo, kja je uporabnik izbral
-choose:
-	call get_char
-	call send_char
-	cpi r16, 0x6D
-	breq z_register_manual
-	cpi r16, 0x61
-	breq z_register_automatic
-	rjmp z_register_hello
-
-;manual mode
 compare_manual:
 	cpi r21, 0x03
 	breq turn_LED_on_manual
@@ -94,6 +81,17 @@ compare_manual:
 	cpi r16, 0x31
 	breq result_maker_1
 	brne result_maker_0
+
+result_maker_1:
+	sec
+	ror r17
+	clc
+	rjmp compare_manual
+
+result_maker_0:
+	clc
+	ror r17
+	rjmp compare_manual
 
 turn_LED_on_manual:
 	clc
@@ -109,16 +107,184 @@ turn_LED_on_manual:
 	out portd, r17
 	rjmp z_register_manual
 
-result_maker_1:
-	sec
-	ror r17
-	clc
-	rjmp compare_manual
+;pogovorna besedila za automatic
+z_register_automatic_1:
+	ldi zh, high(automatic_1*2)
+	ldi zl, low(automatic_1*2)
+	rjmp automatic_program_1
 
-result_maker_0:
+automatic_program_1:
+	ldi r21, 0x00
+	lpm r16, z+
+	cpi r16, 0x00
+	breq compare_automatic_1
+	call send_char
+	rjmp automatic_program_1
+
+compare_automatic_1:
+	cpi r21, 0x03
+	breq z_register_automatic_2
+	inc r21
+	call get_char
+	call send_char
+	cpi r16, 0x31
+	breq result_maker_1_1
+	brne result_maker_0_1
+	ldi r16, 0x0A
+	call send_char
+
+result_maker_0_1:
 	clc
-	ror r17
-	rjmp compare_manual
+	ror r22
+	rjmp compare_automatic_1
+
+result_maker_1_1:
+	sec
+	ror r22
+	clc
+	rjmp compare_automatic_1
+
+z_register_automatic_2:
+	ldi zh, high(automatic_2*2)
+	ldi zl, low(automatic_2*2)
+	rjmp automatic_program_2
+
+automatic_program_2:
+	ldi r21, 0x00
+	lpm r16, z+
+	cpi r16, 0x00
+	breq compare_automatic_2
+	call send_char
+	rjmp automatic_program_2
+
+z_register_automatic_3:
+	ldi zh, high(automatic_3*2)
+	ldi zl, low(automatic_3*2)
+	rjmp automatic_program_3
+
+automatic_program_3:
+	ldi r21, 0x00
+	lpm r16, z+
+	cpi r16, 0x00
+	breq compare_automatic_3
+	call send_char
+	rjmp automatic_program_3
+
+compare_automatic_3:
+	cpi r21, 0x03
+	breq z_register_automatic_4
+	inc r21
+	call get_char
+	call send_char
+	cpi r16, 0x31
+	breq result_maker_1_3
+	brne result_maker_0_3
+	ldi r16, 0x0A
+	call send_char
+
+result_maker_1_3:
+	sec
+	ror r24
+	clc
+	rjmp compare_automatic_3
+
+result_maker_0_3:
+	clc
+	ror r24
+	rjmp compare_automatic_3
+
+z_register_automatic_4:
+	ldi zh, high(automatic_4*2)
+	ldi zl, low(automatic_4*2)
+	rjmp automatic_program_4
+
+automatic_program_4:
+	ldi r21, 0x00
+	lpm r16, z+
+	cpi r16, 0x00
+	breq compare_automatic_4
+	call send_char
+	rjmp automatic_program_4
+
+
+compare_automatic_2:
+	cpi r21, 0x03
+	breq z_register_automatic_3
+	inc r21
+	call get_char
+	call send_char
+	cpi r16, 0x31
+	breq result_maker_1_2
+	brne result_maker_0_2
+	ldi r16, 0x0A
+	call send_char
+
+result_maker_0_2:
+	clc
+	ror r23
+	rjmp compare_automatic_2
+
+result_maker_1_2:
+	sec
+	ror r23
+	clc
+	rjmp compare_automatic_2
+
+compare_automatic_4:
+	cpi r21, 0x03
+	breq turn_LED_on_automatic
+	inc r21
+	call get_char
+	call send_char
+	cpi r16, 0x31
+	breq result_maker_1_4
+	brne result_maker_0_4
+	ldi r16, 0x0A
+	call send_char
+
+;zanka za automatic prižig LED luèk
+turn_LED_on_automatic:
+	clc
+	clr r21
+	ror r22
+	ror r22
+	ror r22	
+	ror r23
+	ror r23
+	ror r23
+	ror r24
+	ror r24
+	ror r24
+	ror r25
+	ror r25
+	ror r25
+	rjmp loop
+
+loop:
+	out ddrd, r22
+	out portd, r22
+	call wait
+	out ddrd, r23
+	out portd, r23
+	call wait
+	out ddrd, r24
+	out portd, r24
+	call wait
+	out ddrd, r25
+	out portd, r25
+	call wait
+	rjmp loop
+
+result_maker_1_4:
+	sec
+	ror r25
+	clc
+	rjmp compare_automatic_4
+
+result_maker_0_4:
+	clc
+	ror r25
+	rjmp compare_automatic_4
 
 ;Wait loop. Ne spreminjaj. Delay: 500ms
 wait:
@@ -136,7 +302,10 @@ L1: dec  r20
 
 hello: .db " Dobrodosli v programatorju luck. Izberi mode manual ali automatic(m/a): ",0
 manual: .db " Dobrodosli v manual mode-u. Napisite program: ",0
-automatic: .db " Coming soon! ",0
+automatic_1: .db " Dobrodosli v automatic mode-u. Izberite prvo zaporedje: ",0
+automatic_2: .db " Izberite drugo zaporedje: ",0
+automatic_3: .db " Izberite tretje zaporedje: ",0
+automatic_4: .db " Izberite cetrto zaporedje: ",0
 
 ;****************************************************************************************************
 ;  printstring
