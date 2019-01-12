@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.7  D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm Fri Jan 11 17:10:15 2019
+AVRASM ver. 2.2.7  D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm Sat Jan 12 16:36:09 2019
 
 
 EQU  SIGNATURE_000 0000001e
@@ -696,35 +696,40 @@ EQU  TWIaddr      00000030
 EQU  SPMRaddr     00000032
 EQU  INT_VECTORS_SIZE 00000034
 EQU  baudrate     00002580
-CSEG setupUART    00000070
+CSEG setupUART    000000af
 CSEG z_register_hello 00000002
-CSEG hello        0000000c
+CSEG hello        00000051
 CSEG welcome      00000005
-CSEG compare      0000003c
-CSEG send_char    00000080
-CSEG start        00000026
-CSEG wait         0000004d
-CSEG setup        00000038
-CSEG loop         0000003a
-CSEG get_char     00000089
-CSEG result_maker_1 00000046
-CSEG result_maker_0 0000004a
-CSEG L1           00000050
-CSEG printstring  00000057
-CSEG stopprinting 0000005d
-CSEG send_hex     0000005e
-CSEG manjsa_od_10_1 00000064
-CSEG manjsa_od_10_2 0000006c
-CSEG poskusi_poslati 00000081
-CSEG vrnise       0000008f
-CSEG div10_8bit   00000090
-CSEG dobro        00000096
-CSEG print_8bit_base10 000000a1
-CSEG naslednja_cifra 000000a5
-CSEG izpisi_cifre 000000ab
-CSEG konec_izpisa 000000b1
-CSEG dump_registers 000000b3
-CSEG naslednji_register 000000d8
-CSEG no_new_line  000000f6
+CSEG choose       0000001e
+CSEG send_char    000000bf
+CSEG z_register_manual 0000000c
+CSEG manual       00000076
+CSEG manual_program 0000000f
+CSEG compare_manual 00000027
+CSEG z_register_automatic 00000015
+CSEG automatic    0000008e
+CSEG automatic_program 00000018
+CSEG get_char     000000c8
+CSEG turn_LED_on_manual 00000031
+CSEG result_maker_1 0000003f
+CSEG result_maker_0 00000043
+CSEG wait         00000046
+CSEG L1           00000049
+CSEG printstring  00000096
+CSEG stopprinting 0000009c
+CSEG send_hex     0000009d
+CSEG manjsa_od_10_1 000000a3
+CSEG manjsa_od_10_2 000000ab
+CSEG poskusi_poslati 000000c0
+CSEG vrnise       000000ce
+CSEG div10_8bit   000000cf
+CSEG dobro        000000d5
+CSEG print_8bit_base10 000000e0
+CSEG naslednja_cifra 000000e4
+CSEG izpisi_cifre 000000ea
+CSEG konec_izpisa 000000f0
+CSEG dump_registers 000000f2
+CSEG naslednji_register 00000117
+CSEG no_new_line  00000135
 DSEG StackHI      00000100
 DSEG StackLO      00000101

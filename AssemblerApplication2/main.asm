@@ -5,7 +5,9 @@
 ; Author : Uporabnik
 ;
 
-;uporabnik vpiše zaporedje bitov, v katerem želi, da se mu luèke prižgejo
+;dobrodošli v source kodi za Programator Led luèk
+;automatic mode: vpišeš štiri zaporedja luèk, katere se potem ponavlajjo v zanki z razmikom 500ms
+;manual mode: uporabnik vpiše zaporedje bitov, v katerem želi, da se mu luèke prižgejo
 ;priklopi led luèke na vhode od vkljuèno d2 do vkljuèno d4
 
 ;prvo vkljuèimo kodo knjižnice
@@ -34,6 +36,7 @@
 
 call setupUART
 
+;vsa pogovorna besedil
 z_register_hello:
 	ldi zh, high(hello*2)
 	ldi zl, low(hello*2)
@@ -43,13 +46,56 @@ welcome:
 	ldi r21, 0x00
 	lpm r16, z+
 	cpi r16, 0x00
-	breq compare
+	breq choose
 	call send_char
 	rjmp welcome
 
-hello: .db " Dobrodosli v programatorju luck. Napisi program: ", 0
+z_register_manual:
+	ldi zh, high(manual*2)
+	ldi zl, low(manual*2)
+	rjmp manual_program
 
-start:
+manual_program:
+	lpm r16, z+
+	cpi r16, 0x00
+	breq compare_manual
+	call send_char
+	rjmp manual_program
+
+z_register_automatic:
+	ldi zh, high(automatic*2)
+	ldi zl, low(automatic*2)
+	rjmp automatic_program
+
+automatic_program:
+	lpm r16, z+
+	cpi r16, 0x00
+	breq z_register_hello
+	call send_char
+	rjmp automatic_program
+	
+;pa preverimo, kja je uporabnik izbral
+choose:
+	call get_char
+	call send_char
+	cpi r16, 0x6D
+	breq z_register_manual
+	cpi r16, 0x61
+	breq z_register_automatic
+	rjmp z_register_hello
+
+;manual mode
+compare_manual:
+	cpi r21, 0x03
+	breq turn_LED_on_manual
+	inc r21
+	call get_char
+	call send_char
+	cpi r16, 0x31
+	breq result_maker_1
+	brne result_maker_0
+
+turn_LED_on_manual:
 	clc
 	clr r21
 	ror r17
@@ -58,58 +104,39 @@ start:
 	ldi r16, 0x0A
 	call send_char
 	ldi r16, 0x07
-	ldi r22, 0b00001111
-	out ddrb, r22
-	out portb, r22
-	call wait
-	out portb, r21
 	call send_char
-	rjmp setup
-
-setup:
 	out ddrd, r17
-	rjmp loop
-
-loop:
 	out portd, r17
-	rjmp z_register_hello
-
-compare:
-	cpi r21, 0x03
-	breq start
-	inc r21
-	call get_char
-	call send_char
-	cpi r16, 0x31
-	breq result_maker_1
-	brne result_maker_0
+	rjmp z_register_manual
 
 result_maker_1:
 	sec
 	ror r17
 	clc
-	rjmp compare
+	rjmp compare_manual
 
 result_maker_0:
 	clc
 	ror r17
-	rjmp compare
+	rjmp compare_manual
 
+;Wait loop. Ne spreminjaj. Delay: 500ms
 wait:
-    ldi  r18, 5
-    ldi  r19, 15
-    ldi  r20, 242
+    ldi  r18, 21
+    ldi  r19, 75
+    ldi  r20, 191
 L1: dec  r20
     brne L1
     dec  r19
     brne L1
     dec  r18
     brne L1
+    nop
 	ret
 
-
-
-
+hello: .db " Dobrodosli v programatorju luck. Izberi mode manual ali automatic(m/a): ",0
+manual: .db " Dobrodosli v manual mode-u. Napisite program: ",0
+automatic: .db " Coming soon! ",0
 
 ;****************************************************************************************************
 ;  printstring
