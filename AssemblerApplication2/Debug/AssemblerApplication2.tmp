@@ -1,0 +1,58 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.7</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\avrasm\inc\m328pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\Debug\AssemblerApplication2.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>AssemblerApplication2.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>AssemblerApplication2.map</FILE>
+  <FILE>AssemblerApplication2.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <setupUART><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>161</LINE></setupUART>
+  <z_register_hello><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>37</LINE></z_register_hello>
+  <hello><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>50</LINE></hello>
+  <welcome><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>42</LINE></welcome>
+  <compare><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>77</LINE></compare>
+  <send_char><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>193</LINE></send_char>
+  <start><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>52</LINE></start>
+  <wait><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>98</LINE></wait>
+  <setup><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>69</LINE></setup>
+  <loop><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>73</LINE></loop>
+  <get_char><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>209</LINE></get_char>
+  <result_maker_1><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>87</LINE></result_maker_1>
+  <result_maker_0><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>93</LINE></result_maker_0>
+  <L1><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>102</LINE></L1>
+  <printstring><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>120</LINE></printstring>
+  <stopprinting><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>125</LINE></stopprinting>
+  <send_hex><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>132</LINE></send_hex>
+  <manjsa_od_10_1><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>140</LINE></manjsa_od_10_1>
+  <manjsa_od_10_2><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>150</LINE></manjsa_od_10_2>
+  <poskusi_poslati><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>195</LINE></poskusi_poslati>
+  <vrnise><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>215</LINE></vrnise>
+  <div10_8bit><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>223</LINE></div10_8bit>
+  <dobro><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>229</LINE></dobro>
+  <print_8bit_base10><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>249</LINE></print_8bit_base10>
+  <naslednja_cifra><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>254</LINE></naslednja_cifra>
+  <izpisi_cifre><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>261</LINE></izpisi_cifre>
+  <konec_izpisa><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>267</LINE></konec_izpisa>
+  <dump_registers><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>270</LINE></dump_registers>
+  <naslednji_register><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>309</LINE></naslednji_register>
+  <no_new_line><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>337</LINE></no_new_line>
+  <StackHI><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>376</LINE></StackHI>
+  <StackLO><FILE>D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm</FILE><LINE>377</LINE></StackLO>
+ </LABELS>
+</ASSEMBLER_INFO>
