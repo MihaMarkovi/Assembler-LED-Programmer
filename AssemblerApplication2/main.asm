@@ -61,6 +61,8 @@ choose:
 
 ;pogovorno besedilo za manual
 z_register_manual:
+	ldi r16, 0x0A
+	call send_char
 	ldi zh, high(manual*2)
 	ldi zl, low(manual*2)
 	rjmp manual_program
@@ -99,8 +101,6 @@ turn_LED_on_manual:
 	ror r17
 	ror r17
 	ror r17
-	ldi r16, 0x0A
-	call send_char
 	ldi r16, 0x07
 	call send_char
 	out ddrd, r17
@@ -109,6 +109,8 @@ turn_LED_on_manual:
 
 ;pogovorna besedila za automatic
 z_register_automatic_1:
+	ldi r16, 0x0A
+	call send_char
 	ldi zh, high(automatic_1*2)
 	ldi zl, low(automatic_1*2)
 	rjmp automatic_program_1
@@ -145,6 +147,8 @@ result_maker_1_1:
 	rjmp compare_automatic_1
 
 z_register_automatic_2:
+	ldi r16, 0x0A
+	call send_char
 	ldi zh, high(automatic_2*2)
 	ldi zl, low(automatic_2*2)
 	rjmp automatic_program_2
@@ -158,6 +162,8 @@ automatic_program_2:
 	rjmp automatic_program_2
 
 z_register_automatic_3:
+	ldi r16, 0x0A
+	call send_char
 	ldi zh, high(automatic_3*2)
 	ldi zl, low(automatic_3*2)
 	rjmp automatic_program_3
@@ -194,6 +200,8 @@ result_maker_0_3:
 	rjmp compare_automatic_3
 
 z_register_automatic_4:
+	ldi r16, 0x0A
+	call send_char
 	ldi zh, high(automatic_4*2)
 	ldi zl, low(automatic_4*2)
 	rjmp automatic_program_4
@@ -258,19 +266,17 @@ turn_LED_on_automatic:
 	ror r25
 	ror r25
 	ror r25
+	ldi r26, 0b00011100
+	out ddrd, r26
 	rjmp loop
 
 loop:
-	out ddrd, r22
 	out portd, r22
 	call wait
-	out ddrd, r23
 	out portd, r23
 	call wait
-	out ddrd, r24
 	out portd, r24
 	call wait
-	out ddrd, r25
 	out portd, r25
 	call wait
 	rjmp loop
