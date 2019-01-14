@@ -63,6 +63,8 @@ choose:
 z_register_manual:
 	ldi r16, 0x0A
 	call send_char
+	ldi r16, 0x07
+	call send_char
 	ldi zh, high(manual*2)
 	ldi zl, low(manual*2)
 	rjmp manual_program
@@ -111,6 +113,8 @@ turn_LED_on_manual:
 z_register_automatic_1:
 	ldi r16, 0x0A
 	call send_char
+	ldi r16, 0x07
+	call send_char
 	ldi zh, high(automatic_1*2)
 	ldi zl, low(automatic_1*2)
 	rjmp automatic_program_1
@@ -149,6 +153,8 @@ result_maker_1_1:
 z_register_automatic_2:
 	ldi r16, 0x0A
 	call send_char
+	ldi r16, 0x07
+	call send_char
 	ldi zh, high(automatic_2*2)
 	ldi zl, low(automatic_2*2)
 	rjmp automatic_program_2
@@ -163,6 +169,8 @@ automatic_program_2:
 
 z_register_automatic_3:
 	ldi r16, 0x0A
+	call send_char
+	ldi r16, 0x07
 	call send_char
 	ldi zh, high(automatic_3*2)
 	ldi zl, low(automatic_3*2)
@@ -187,6 +195,8 @@ compare_automatic_3:
 	brne result_maker_0_3
 	ldi r16, 0x0A
 	call send_char
+	ldi r16, 0x07
+	call send_char
 
 result_maker_1_3:
 	sec
@@ -201,6 +211,8 @@ result_maker_0_3:
 
 z_register_automatic_4:
 	ldi r16, 0x0A
+	call send_char
+	ldi r16, 0x07
 	call send_char
 	ldi zh, high(automatic_4*2)
 	ldi zl, low(automatic_4*2)
@@ -225,6 +237,8 @@ compare_automatic_2:
 	breq result_maker_1_2
 	brne result_maker_0_2
 	ldi r16, 0x0A
+	call send_char
+	ldi r16, 0x07
 	call send_char
 
 result_maker_0_2:

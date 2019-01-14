@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.7  D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm Mon Jan 14 18:46:36 2019
+AVRASM ver. 2.2.7  D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm Mon Jan 14 19:24:06 2019
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\avrasm\inc\m328pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\avrasm\inc\m328pdef.inc'
@@ -1020,12 +1020,12 @@ AVRASM ver. 2.2.7  D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\Asse
                                  ;-------------------------
                                  ;program
                                  
-000000 940e 0189                 call setupUART
+000000 940e 019e                 call setupUART
                                  
                                  ;pogovorno besedio za uvod
                                  z_register_hello:
 000002 e0f1                      	ldi zh, high(hello*2)
-000003 ede4                      	ldi zl, low(hello*2)
+000003 efee                      	ldi zl, low(hello*2)
 000004 c000                      	rjmp welcome
                                  
                                  welcome:
@@ -1033,401 +1033,415 @@ AVRASM ver. 2.2.7  D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\Asse
 000006 9105                      	lpm r16, z+
 000007 3000                      	cpi r16, 0x00
 000008 f019                      	breq choose
-000009 940e 0199                 	call send_char
+000009 940e 01ae                 	call send_char
 00000b cff9                      	rjmp welcome
                                  
                                  choose:
-00000c 940e 01a2                 	call get_char
-00000e 940e 0199                 	call send_char
+00000c 940e 01b7                 	call get_char
+00000e 940e 01ae                 	call send_char
 000010 360d                      	cpi r16, 0x6D
 000011 f019                      	breq z_register_manual
 000012 3601                      	cpi r16, 0x61
-000013 f149                      	breq z_register_automatic_1
+000013 f161                      	breq z_register_automatic_1
 000014 cfed                      	rjmp z_register_hello
                                  
                                  ;pogovorno besedilo za manual
                                  z_register_manual:
 000015 e00a                      	ldi r16, 0x0A
-000016 940e 0199                 	call send_char
-000018 e0f2                      	ldi zh, high(manual*2)
-000019 e1ee                      	ldi zl, low(manual*2)
-00001a c000                      	rjmp manual_program
+000016 940e 01ae                 	call send_char
+000018 e007                      	ldi r16, 0x07
+000019 940e 01ae                 	call send_char
+00001b e0f2                      	ldi zh, high(manual*2)
+00001c e4e8                      	ldi zl, low(manual*2)
+00001d c000                      	rjmp manual_program
                                  
                                  manual_program:
-00001b 9105                      	lpm r16, z+
-00001c 3000                      	cpi r16, 0x00
-00001d f019                      	breq compare_manual
-00001e 940e 0199                 	call send_char
-000020 cffa                      	rjmp manual_program
+00001e 9105                      	lpm r16, z+
+00001f 3000                      	cpi r16, 0x00
+000020 f019                      	breq compare_manual
+000021 940e 01ae                 	call send_char
+000023 cffa                      	rjmp manual_program
                                  
                                  compare_manual:
-000021 3053                      	cpi r21, 0x03
-000022 f079                      	breq turn_LED_on_manual
-000023 9553                      	inc r21
-000024 940e 01a2                 	call get_char
-000026 940e 0199                 	call send_char
-000028 3301                      	cpi r16, 0x31
-000029 f009                      	breq result_maker_1
-00002a f421                      	brne result_maker_0
+000024 3053                      	cpi r21, 0x03
+000025 f079                      	breq turn_LED_on_manual
+000026 9553                      	inc r21
+000027 940e 01b7                 	call get_char
+000029 940e 01ae                 	call send_char
+00002b 3301                      	cpi r16, 0x31
+00002c f009                      	breq result_maker_1
+00002d f421                      	brne result_maker_0
                                  
                                  result_maker_1:
-00002b 9408                      	sec
-00002c 9517                      	ror r17
-00002d 9488                      	clc
-00002e cff2                      	rjmp compare_manual
+00002e 9408                      	sec
+00002f 9517                      	ror r17
+000030 9488                      	clc
+000031 cff2                      	rjmp compare_manual
                                  
                                  result_maker_0:
-00002f 9488                      	clc
-000030 9517                      	ror r17
-000031 cfef                      	rjmp compare_manual
+000032 9488                      	clc
+000033 9517                      	ror r17
+000034 cfef                      	rjmp compare_manual
                                  
                                  turn_LED_on_manual:
-000032 9488                      	clc
-000033 2755                      	clr r21
-000034 9517                      	ror r17
-000035 9517                      	ror r17
-000036 9517                      	ror r17
-000037 e007                      	ldi r16, 0x07
-000038 940e 0199                 	call send_char
-00003a b91a                      	out ddrd, r17
-00003b b91b                      	out portd, r17
-00003c cfd8                      	rjmp z_register_manual
+000035 9488                      	clc
+000036 2755                      	clr r21
+000037 9517                      	ror r17
+000038 9517                      	ror r17
+000039 9517                      	ror r17
+00003a e007                      	ldi r16, 0x07
+00003b 940e 01ae                 	call send_char
+00003d b91a                      	out ddrd, r17
+00003e b91b                      	out portd, r17
+00003f cfd5                      	rjmp z_register_manual
                                  
                                  ;pogovorna besedila za automatic
                                  z_register_automatic_1:
-00003d e00a                      	ldi r16, 0x0A
-00003e 940e 0199                 	call send_char
-000040 e0f2                      	ldi zh, high(automatic_1*2)
-000041 e4ee                      	ldi zl, low(automatic_1*2)
-000042 c000                      	rjmp automatic_program_1
+000040 e00a                      	ldi r16, 0x0A
+000041 940e 01ae                 	call send_char
+000043 e007                      	ldi r16, 0x07
+000044 940e 01ae                 	call send_char
+000046 e0f2                      	ldi zh, high(automatic_1*2)
+000047 e7e8                      	ldi zl, low(automatic_1*2)
+000048 c000                      	rjmp automatic_program_1
                                  
                                  automatic_program_1:
-000043 e050                      	ldi r21, 0x00
-000044 9105                      	lpm r16, z+
-000045 3000                      	cpi r16, 0x00
-000046 f019                      	breq compare_automatic_1
-000047 940e 0199                 	call send_char
-000049 cff9                      	rjmp automatic_program_1
+000049 e050                      	ldi r21, 0x00
+00004a 9105                      	lpm r16, z+
+00004b 3000                      	cpi r16, 0x00
+00004c f019                      	breq compare_automatic_1
+00004d 940e 01ae                 	call send_char
+00004f cff9                      	rjmp automatic_program_1
                                  
                                  compare_automatic_1:
-00004a 3053                      	cpi r21, 0x03
-00004b f091                      	breq z_register_automatic_2
-00004c 9553                      	inc r21
-00004d 940e 01a2                 	call get_char
-00004f 940e 0199                 	call send_char
-000051 3301                      	cpi r16, 0x31
-000052 f039                      	breq result_maker_1_1
-000053 f419                      	brne result_maker_0_1
-000054 e00a                      	ldi r16, 0x0A
-000055 940e 0199                 	call send_char
+000050 3053                      	cpi r21, 0x03
+000051 f091                      	breq z_register_automatic_2
+000052 9553                      	inc r21
+000053 940e 01b7                 	call get_char
+000055 940e 01ae                 	call send_char
+000057 3301                      	cpi r16, 0x31
+000058 f039                      	breq result_maker_1_1
+000059 f419                      	brne result_maker_0_1
+00005a e00a                      	ldi r16, 0x0A
+00005b 940e 01ae                 	call send_char
                                  
                                  result_maker_0_1:
-000057 9488                      	clc
-000058 9567                      	ror r22
-000059 cff0                      	rjmp compare_automatic_1
+00005d 9488                      	clc
+00005e 9567                      	ror r22
+00005f cff0                      	rjmp compare_automatic_1
                                  
                                  result_maker_1_1:
-00005a 9408                      	sec
-00005b 9567                      	ror r22
-00005c 9488                      	clc
-00005d cfec                      	rjmp compare_automatic_1
+000060 9408                      	sec
+000061 9567                      	ror r22
+000062 9488                      	clc
+000063 cfec                      	rjmp compare_automatic_1
                                  
                                  z_register_automatic_2:
-00005e e00a                      	ldi r16, 0x0A
-00005f 940e 0199                 	call send_char
-000061 e0f2                      	ldi zh, high(automatic_2*2)
-000062 e8e8                      	ldi zl, low(automatic_2*2)
-000063 c000                      	rjmp automatic_program_2
+000064 e00a                      	ldi r16, 0x0A
+000065 940e 01ae                 	call send_char
+000067 e007                      	ldi r16, 0x07
+000068 940e 01ae                 	call send_char
+00006a e0f2                      	ldi zh, high(automatic_2*2)
+00006b ebe2                      	ldi zl, low(automatic_2*2)
+00006c c000                      	rjmp automatic_program_2
                                  
                                  automatic_program_2:
-000064 e050                      	ldi r21, 0x00
-000065 9105                      	lpm r16, z+
-000066 3000                      	cpi r16, 0x00
-000067 f189                      	breq compare_automatic_2
-000068 940e 0199                 	call send_char
-00006a cff9                      	rjmp automatic_program_2
+00006d e050                      	ldi r21, 0x00
+00006e 9105                      	lpm r16, z+
+00006f 3000                      	cpi r16, 0x00
+000070 f1d1                      	breq compare_automatic_2
+000071 940e 01ae                 	call send_char
+000073 cff9                      	rjmp automatic_program_2
                                  
                                  z_register_automatic_3:
-00006b e00a                      	ldi r16, 0x0A
-00006c 940e 0199                 	call send_char
-00006e e0f2                      	ldi zh, high(automatic_3*2)
-00006f eae4                      	ldi zl, low(automatic_3*2)
-000070 c000                      	rjmp automatic_program_3
+000074 e00a                      	ldi r16, 0x0A
+000075 940e 01ae                 	call send_char
+000077 e007                      	ldi r16, 0x07
+000078 940e 01ae                 	call send_char
+00007a e0f2                      	ldi zh, high(automatic_3*2)
+00007b ecee                      	ldi zl, low(automatic_3*2)
+00007c c000                      	rjmp automatic_program_3
                                  
                                  automatic_program_3:
-000071 e050                      	ldi r21, 0x00
-000072 9105                      	lpm r16, z+
-000073 3000                      	cpi r16, 0x00
-000074 f019                      	breq compare_automatic_3
-000075 940e 0199                 	call send_char
-000077 cff9                      	rjmp automatic_program_3
+00007d e050                      	ldi r21, 0x00
+00007e 9105                      	lpm r16, z+
+00007f 3000                      	cpi r16, 0x00
+000080 f019                      	breq compare_automatic_3
+000081 940e 01ae                 	call send_char
+000083 cff9                      	rjmp automatic_program_3
                                  
                                  compare_automatic_3:
-000078 3053                      	cpi r21, 0x03
-000079 f091                      	breq z_register_automatic_4
-00007a 9553                      	inc r21
-00007b 940e 01a2                 	call get_char
-00007d 940e 0199                 	call send_char
-00007f 3301                      	cpi r16, 0x31
-000080 f021                      	breq result_maker_1_3
-000081 f439                      	brne result_maker_0_3
-000082 e00a                      	ldi r16, 0x0A
-000083 940e 0199                 	call send_char
+000084 3053                      	cpi r21, 0x03
+000085 f0a9                      	breq z_register_automatic_4
+000086 9553                      	inc r21
+000087 940e 01b7                 	call get_char
+000089 940e 01ae                 	call send_char
+00008b 3301                      	cpi r16, 0x31
+00008c f039                      	breq result_maker_1_3
+00008d f451                      	brne result_maker_0_3
+00008e e00a                      	ldi r16, 0x0A
+00008f 940e 01ae                 	call send_char
+000091 e007                      	ldi r16, 0x07
+000092 940e 01ae                 	call send_char
                                  
                                  result_maker_1_3:
-000085 9408                      	sec
-000086 9587                      	ror r24
-000087 9488                      	clc
-000088 cfef                      	rjmp compare_automatic_3
+000094 9408                      	sec
+000095 9587                      	ror r24
+000096 9488                      	clc
+000097 cfec                      	rjmp compare_automatic_3
                                  
                                  result_maker_0_3:
-000089 9488                      	clc
-00008a 9587                      	ror r24
-00008b cfec                      	rjmp compare_automatic_3
+000098 9488                      	clc
+000099 9587                      	ror r24
+00009a cfe9                      	rjmp compare_automatic_3
                                  
                                  z_register_automatic_4:
-00008c e00a                      	ldi r16, 0x0A
-00008d 940e 0199                 	call send_char
-00008f e0f2                      	ldi zh, high(automatic_4*2)
-000090 ece2                      	ldi zl, low(automatic_4*2)
-000091 c000                      	rjmp automatic_program_4
+00009b e00a                      	ldi r16, 0x0A
+00009c 940e 01ae                 	call send_char
+00009e e007                      	ldi r16, 0x07
+00009f 940e 01ae                 	call send_char
+0000a1 e0f2                      	ldi zh, high(automatic_4*2)
+0000a2 eeec                      	ldi zl, low(automatic_4*2)
+0000a3 c000                      	rjmp automatic_program_4
                                  
                                  automatic_program_4:
-000092 e050                      	ldi r21, 0x00
-000093 9105                      	lpm r16, z+
-000094 3000                      	cpi r16, 0x00
-000095 f0b9                      	breq compare_automatic_4
-000096 940e 0199                 	call send_char
-000098 cff9                      	rjmp automatic_program_4
+0000a4 e050                      	ldi r21, 0x00
+0000a5 9105                      	lpm r16, z+
+0000a6 3000                      	cpi r16, 0x00
+0000a7 f0d1                      	breq compare_automatic_4
+0000a8 940e 01ae                 	call send_char
+0000aa cff9                      	rjmp automatic_program_4
                                  
                                  
                                  compare_automatic_2:
-000099 3053                      	cpi r21, 0x03
-00009a f281                      	breq z_register_automatic_3
-00009b 9553                      	inc r21
-00009c 940e 01a2                 	call get_char
-00009e 940e 0199                 	call send_char
-0000a0 3301                      	cpi r16, 0x31
-0000a1 f039                      	breq result_maker_1_2
-0000a2 f419                      	brne result_maker_0_2
-0000a3 e00a                      	ldi r16, 0x0A
-0000a4 940e 0199                 	call send_char
+0000ab 3053                      	cpi r21, 0x03
+0000ac f239                      	breq z_register_automatic_3
+0000ad 9553                      	inc r21
+0000ae 940e 01b7                 	call get_char
+0000b0 940e 01ae                 	call send_char
+0000b2 3301                      	cpi r16, 0x31
+0000b3 f051                      	breq result_maker_1_2
+0000b4 f431                      	brne result_maker_0_2
+0000b5 e00a                      	ldi r16, 0x0A
+0000b6 940e 01ae                 	call send_char
+0000b8 e007                      	ldi r16, 0x07
+0000b9 940e 01ae                 	call send_char
                                  
                                  result_maker_0_2:
-0000a6 9488                      	clc
-0000a7 9577                      	ror r23
-0000a8 cff0                      	rjmp compare_automatic_2
+0000bb 9488                      	clc
+0000bc 9577                      	ror r23
+0000bd cfed                      	rjmp compare_automatic_2
                                  
                                  result_maker_1_2:
-0000a9 9408                      	sec
-0000aa 9577                      	ror r23
-0000ab 9488                      	clc
-0000ac cfec                      	rjmp compare_automatic_2
+0000be 9408                      	sec
+0000bf 9577                      	ror r23
+0000c0 9488                      	clc
+0000c1 cfe9                      	rjmp compare_automatic_2
                                  
                                  compare_automatic_4:
-0000ad 3053                      	cpi r21, 0x03
-0000ae f059                      	breq turn_LED_on_automatic
-0000af 9553                      	inc r21
-0000b0 940e 01a2                 	call get_char
-0000b2 940e 0199                 	call send_char
-0000b4 3301                      	cpi r16, 0x31
-0000b5 f111                      	breq result_maker_1_4
-0000b6 f529                      	brne result_maker_0_4
-0000b7 e00a                      	ldi r16, 0x0A
-0000b8 940e 0199                 	call send_char
+0000c2 3053                      	cpi r21, 0x03
+0000c3 f059                      	breq turn_LED_on_automatic
+0000c4 9553                      	inc r21
+0000c5 940e 01b7                 	call get_char
+0000c7 940e 01ae                 	call send_char
+0000c9 3301                      	cpi r16, 0x31
+0000ca f111                      	breq result_maker_1_4
+0000cb f529                      	brne result_maker_0_4
+0000cc e00a                      	ldi r16, 0x0A
+0000cd 940e 01ae                 	call send_char
                                  
                                  ;zanka za automatic prižig LED luèk
                                  turn_LED_on_automatic:
-0000ba 9488                      	clc
-0000bb 2755                      	clr r21
-0000bc 9567                      	ror r22
-0000bd 9567                      	ror r22
-0000be 9567                      	ror r22	
-0000bf 9577                      	ror r23
-0000c0 9577                      	ror r23
-0000c1 9577                      	ror r23
-0000c2 9587                      	ror r24
-0000c3 9587                      	ror r24
-0000c4 9587                      	ror r24
-0000c5 9597                      	ror r25
-0000c6 9597                      	ror r25
-0000c7 9597                      	ror r25
-0000c8 e1ac                      	ldi r26, 0b00011100
-0000c9 b9aa                      	out ddrd, r26
-0000ca c000                      	rjmp loop
+0000cf 9488                      	clc
+0000d0 2755                      	clr r21
+0000d1 9567                      	ror r22
+0000d2 9567                      	ror r22
+0000d3 9567                      	ror r22	
+0000d4 9577                      	ror r23
+0000d5 9577                      	ror r23
+0000d6 9577                      	ror r23
+0000d7 9587                      	ror r24
+0000d8 9587                      	ror r24
+0000d9 9587                      	ror r24
+0000da 9597                      	ror r25
+0000db 9597                      	ror r25
+0000dc 9597                      	ror r25
+0000dd e1ac                      	ldi r26, 0b00011100
+0000de b9aa                      	out ddrd, r26
+0000df c000                      	rjmp loop
                                  
                                  loop:
-0000cb b96b                      	out portd, r22
-0000cc 940e 00df                 	call wait
-0000ce b97b                      	out portd, r23
-0000cf 940e 00df                 	call wait
-0000d1 b98b                      	out portd, r24
-0000d2 940e 00df                 	call wait
-0000d4 b99b                      	out portd, r25
-0000d5 940e 00df                 	call wait
-0000d7 cff3                      	rjmp loop
+0000e0 b96b                      	out portd, r22
+0000e1 940e 00f4                 	call wait
+0000e3 b97b                      	out portd, r23
+0000e4 940e 00f4                 	call wait
+0000e6 b98b                      	out portd, r24
+0000e7 940e 00f4                 	call wait
+0000e9 b99b                      	out portd, r25
+0000ea 940e 00f4                 	call wait
+0000ec cff3                      	rjmp loop
                                  
                                  result_maker_1_4:
-0000d8 9408                      	sec
-0000d9 9597                      	ror r25
-0000da 9488                      	clc
-0000db cfd1                      	rjmp compare_automatic_4
+0000ed 9408                      	sec
+0000ee 9597                      	ror r25
+0000ef 9488                      	clc
+0000f0 cfd1                      	rjmp compare_automatic_4
                                  
                                  result_maker_0_4:
-0000dc 9488                      	clc
-0000dd 9597                      	ror r25
-0000de cfce                      	rjmp compare_automatic_4
+0000f1 9488                      	clc
+0000f2 9597                      	ror r25
+0000f3 cfce                      	rjmp compare_automatic_4
                                  
                                  ;Wait loop. Ne spreminjaj. Delay: 500ms
                                  wait:
-0000df e125                          ldi  r18, 21
-0000e0 e43b                          ldi  r19, 75
-0000e1 eb4f                          ldi  r20, 191
-0000e2 954a                      L1: dec  r20
-0000e3 f7f1                          brne L1
-0000e4 953a                          dec  r19
-0000e5 f7e1                          brne L1
-0000e6 952a                          dec  r18
-0000e7 f7d1                          brne L1
-0000e8 0000                          nop
-0000e9 9508                      	ret
+0000f4 e125                          ldi  r18, 21
+0000f5 e43b                          ldi  r19, 75
+0000f6 eb4f                          ldi  r20, 191
+0000f7 954a                      L1: dec  r20
+0000f8 f7f1                          brne L1
+0000f9 953a                          dec  r19
+0000fa f7e1                          brne L1
+0000fb 952a                          dec  r18
+0000fc f7d1                          brne L1
+0000fd 0000                          nop
+0000fe 9508                      	ret
                                  
-0000ea 4420
-0000eb 626f
-0000ec 6f72
-0000ed 6f64
-0000ee 6c73
-0000ef 2069
-0000f0 2076
-0000f1 7270
-0000f2 676f
-0000f3 6172
-0000f4 616d
-0000f5 6f74
-0000f6 6a72
-0000f7 2075
-0000f8 756c
-0000f9 6b63
-0000fa 202e
-0000fb 7a49
-0000fc 6562
-0000fd 6972
-0000fe 6d20
-0000ff 646f
-000100 2065
-000101 616d
-000102 756e
-000103 6c61
-000104 6120
-000105 696c
-000106 6120
-000107 7475
-000108 6d6f
-000109 7461
-00010a 6369
-00010b 6d28
-00010c 612f
-00010d 3a29
-00010e 0020                      hello: .db " Dobrodosli v programatorju luck. Izberi mode manual ali automatic(m/a): ",0
-00010f 4420
-000110 626f
-000111 6f72
-000112 6f64
-000113 6c73
-000114 2069
-000115 2076
+0000ff 4420
+000100 626f
+000101 6f72
+000102 6f64
+000103 6c73
+000104 2069
+000105 2076
+000106 7270
+000107 676f
+000108 6172
+000109 616d
+00010a 6f74
+00010b 6a72
+00010c 2075
+00010d 756c
+00010e 6b63
+00010f 202e
+000110 7a49
+000111 6562
+000112 6972
+000113 6d20
+000114 646f
+000115 2065
 000116 616d
 000117 756e
 000118 6c61
-000119 6d20
-00011a 646f
-00011b 2d65
-00011c 2e75
-00011d 4e20
-00011e 7061
-00011f 7369
-000120 7469
-000121 2065
-000122 7270
-000123 676f
-000124 6172
-000125 3a6d
-000126 0020                      manual: .db " Dobrodosli v manual mode-u. Napisite program: ",0
-000127 4420
-000128 626f
-000129 6f72
-00012a 6f64
-00012b 6c73
-00012c 2069
-00012d 2076
-00012e 7561
-00012f 6f74
-000130 616d
-000131 6974
-000132 2063
-000133 6f6d
-000134 6564
-000135 752d
-000136 202e
-000137 7a49
-000138 6562
-000139 6972
-00013a 6574
-00013b 7020
-00013c 7672
-00013d 206f
-00013e 617a
-00013f 6f70
-000140 6572
-000141 6a64
-000142 3a65
-000143 0020                      automatic_1: .db " Dobrodosli v automatic mode-u. Izberite prvo zaporedje: ",0
-000144 4920
-000145 627a
-000146 7265
-000147 7469
-000148 2065
-000149 7264
-00014a 6775
-00014b 206f
-00014c 617a
-00014d 6f70
-00014e 6572
-00014f 6a64
-000150 3a65
-000151 0020                      automatic_2: .db " Izberite drugo zaporedje: ",0
-000152 4920
-000153 627a
-000154 7265
-000155 7469
-000156 2065
-000157 7274
-000158 7465
-000159 656a
-00015a 7a20
-00015b 7061
-00015c 726f
-00015d 6465
-00015e 656a
-00015f 203a
-D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm(313): warning: .cseg .db misalignment - padding zero byte
-000160 0000                      automatic_3: .db " Izberite tretje zaporedje: ",0
-000161 4920
-000162 627a
-000163 7265
-000164 7469
-000165 2065
-000166 6563
-000167 7274
-000168 6f74
-000169 7a20
-00016a 7061
-00016b 726f
-00016c 6465
-00016d 656a
-00016e 203a
-D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm(314): warning: .cseg .db misalignment - padding zero byte
-00016f 0000                      automatic_4: .db " Izberite cetrto zaporedje: ",0
+000119 6120
+00011a 696c
+00011b 6120
+00011c 7475
+00011d 6d6f
+00011e 7461
+00011f 6369
+000120 6d28
+000121 612f
+000122 3a29
+000123 0020                      hello: .db " Dobrodosli v programatorju luck. Izberi mode manual ali automatic(m/a): ",0
+000124 4420
+000125 626f
+000126 6f72
+000127 6f64
+000128 6c73
+000129 2069
+00012a 2076
+00012b 616d
+00012c 756e
+00012d 6c61
+00012e 6d20
+00012f 646f
+000130 2d65
+000131 2e75
+000132 4e20
+000133 7061
+000134 7369
+000135 7469
+000136 2065
+000137 7270
+000138 676f
+000139 6172
+00013a 3a6d
+00013b 0020                      manual: .db " Dobrodosli v manual mode-u. Napisite program: ",0
+00013c 4420
+00013d 626f
+00013e 6f72
+00013f 6f64
+000140 6c73
+000141 2069
+000142 2076
+000143 7561
+000144 6f74
+000145 616d
+000146 6974
+000147 2063
+000148 6f6d
+000149 6564
+00014a 752d
+00014b 202e
+00014c 7a49
+00014d 6562
+00014e 6972
+00014f 6574
+000150 7020
+000151 7672
+000152 206f
+000153 617a
+000154 6f70
+000155 6572
+000156 6a64
+000157 3a65
+000158 0020                      automatic_1: .db " Dobrodosli v automatic mode-u. Izberite prvo zaporedje: ",0
+000159 4920
+00015a 627a
+00015b 7265
+00015c 7469
+00015d 2065
+00015e 7264
+00015f 6775
+000160 206f
+000161 617a
+000162 6f70
+000163 6572
+000164 6a64
+000165 3a65
+000166 0020                      automatic_2: .db " Izberite drugo zaporedje: ",0
+000167 4920
+000168 627a
+000169 7265
+00016a 7469
+00016b 2065
+00016c 7274
+00016d 7465
+00016e 656a
+00016f 7a20
+000170 7061
+000171 726f
+000172 6465
+000173 656a
+000174 203a
+D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm(327): warning: .cseg .db misalignment - padding zero byte
+000175 0000                      automatic_3: .db " Izberite tretje zaporedje: ",0
+000176 4920
+000177 627a
+000178 7265
+000179 7469
+00017a 2065
+00017b 6563
+00017c 7274
+00017d 6f74
+00017e 7a20
+00017f 7061
+000180 726f
+000181 6465
+000182 656a
+000183 203a
+D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\main.asm(328): warning: .cseg .db misalignment - padding zero byte
+000184 0000                      automatic_4: .db " Izberite cetrto zaporedje: ",0
                                  
                                  ;****************************************************************************************************
                                  ;  printstring
@@ -1435,41 +1449,41 @@ D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\m
                                  ;****************************************************************************************************
                                  
                                  				.cseg
-000170 9105                      printstring:	lpm r16, Z+			; naloži znak in premakni kazalec Z naprej
-000171 3000                      				cpi r16, 0			; ali je konec niza (niz se konèa z NULL)
-000172 f019                      				breq stopprinting	; da, skoèi na konec
-000173 940e 0199                 				call send_char		; ne, pošlji znak
-000175 cffa                      				rjmp printstring	; na vrsti je naslednji znak, skoèi tja
-000176 9508                      stopprinting:	ret				                
+000185 9105                      printstring:	lpm r16, Z+			; naloži znak in premakni kazalec Z naprej
+000186 3000                      				cpi r16, 0			; ali je konec niza (niz se konèa z NULL)
+000187 f019                      				breq stopprinting	; da, skoèi na konec
+000188 940e 01ae                 				call send_char		; ne, pošlji znak
+00018a cffa                      				rjmp printstring	; na vrsti je naslednji znak, skoèi tja
+00018b 9508                      stopprinting:	ret				                
                                  
                                  ;****************************************************************************************************
                                  ;  poslji_hex
                                  ;  r16 - stevilka, ki jo zelimo izpisati na UART 
                                  ;****************************************************************************************************
                                  				; v r16 damo vrednost, na UART dobimo dve ASCII šestnajstiški števki  (0xFF --> 'FF')
-000177 930f                      send_hex:		push r16			; kako pretvorimo vrednosti od 0 do 9 v '0' do '9'?
+00018c 930f                      send_hex:		push r16			; kako pretvorimo vrednosti od 0 do 9 v '0' do '9'?
                                  									; kaj pa od 10 do 15 v 'A' do 'F'?
-000178 9502                      				swap r16			; zamenjamo visoki in nizki del byta
-000179 700f                      				andi r16, 0x0F		; zanimajo nas samo štirje biti
+00018d 9502                      				swap r16			; zamenjamo visoki in nizki del byta
+00018e 700f                      				andi r16, 0x0F		; zanimajo nas samo štirje biti
                                  
-00017a 300a                      				cpi r16, 0x0A		; primerjaj z deset
-00017b f008                      				brcs manjsa_od_10_1
-00017c 5f09                      				subi r16, -7		; èe ni manjša od deset, je osnova 'A', r16 je vsaj 10, prištejemo še '0', je potem 58, manjka še 7
+00018f 300a                      				cpi r16, 0x0A		; primerjaj z deset
+000190 f008                      				brcs manjsa_od_10_1
+000191 5f09                      				subi r16, -7		; èe ni manjša od deset, je osnova 'A', r16 je vsaj 10, prištejemo še '0', je potem 58, manjka še 7
                                  manjsa_od_10_1:						; sicer je osnova '0', prištejemo 48 ('0')
-00017d 5d00                      				subi r16, -48
-00017e 940e 0199                 				call send_char
+000192 5d00                      				subi r16, -48
+000193 940e 01ae                 				call send_char
                                  
-000180 910f                      				pop r16
-000181 700f                      				andi r16, 0x0F		; zanimajo nas samo štirje biti, tokrat so to spodnji štirje
+000195 910f                      				pop r16
+000196 700f                      				andi r16, 0x0F		; zanimajo nas samo štirje biti, tokrat so to spodnji štirje
                                  
-000182 300a                      				cpi r16, 0x0A		; primerjaj z deset
-000183 f008                      				brcs manjsa_od_10_2
-000184 5f09                      				subi r16, -7		; èe ni manjša od deset, je osnova 'A', r16 je vsaj 10, prištejemo še '0', je potem 58, manjka še 7
+000197 300a                      				cpi r16, 0x0A		; primerjaj z deset
+000198 f008                      				brcs manjsa_od_10_2
+000199 5f09                      				subi r16, -7		; èe ni manjša od deset, je osnova 'A', r16 je vsaj 10, prištejemo še '0', je potem 58, manjka še 7
                                  manjsa_od_10_2:						; sicer je osnova '0', prištejemo 48 ('0')
-000185 5d00                      				subi r16, -48
-000186 940e 0199                 				call send_char
+00019a 5d00                      				subi r16, -48
+00019b 940e 01ae                 				call send_char
                                  
-000188 9508                      				ret
+00019d 9508                      				ret
                                  				
                                  ;****************************************************************************************************
                                  ;  setupUART
@@ -1486,22 +1500,22 @@ D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\m
                                  				; 9600 baudov @ 16Mhz
                                  				; v IO register UBBR0 naložimo baudrate / 8
                                  
-000189 e607                      				ldi r16, 0x67
-00018a e010                      				ldi r17, 0x00
-00018b 9300 00c4                 				sts UBRR0L, r16
-00018d 9310 00c5                 				sts UBRR0H, r17
+00019e e607                      				ldi r16, 0x67
+00019f e010                      				ldi r17, 0x00
+0001a0 9300 00c4                 				sts UBRR0L, r16
+0001a2 9310 00c5                 				sts UBRR0H, r17
                                  
                                  				; RXEN0 = 4, TXEN0 = 3, znak << pomeni pomik v levo, >> desno
                                  				; 1<<TXEN0 = 0x40 (0b00000001 --> 0b00001000)
-00018f e108                      				ldi r16, (1<<RXEN0)|(1<<TXEN0) ; vkljuèimo bita za sprejem in za oddajo - pina dobita RX in TX funkcijo
-000190 9300 00c1                 				sts UCSR0B,r16
+0001a4 e108                      				ldi r16, (1<<RXEN0)|(1<<TXEN0) ; vkljuèimo bita za sprejem in za oddajo - pina dobita RX in TX funkcijo
+0001a5 9300 00c1                 				sts UCSR0B,r16
                                  
-000192 e006                      				ldi r16, (3<<UCSZ00) ; 8 bitov, 1 stop bit
-000193 9300 00c2                 				sts UCSR0C,r16
-000195 2700                      				clr r16
-000196 9300 00c0                 				sts UCSR0A, r16
+0001a7 e006                      				ldi r16, (3<<UCSZ00) ; 8 bitov, 1 stop bit
+0001a8 9300 00c2                 				sts UCSR0C,r16
+0001aa 2700                      				clr r16
+0001ab 9300 00c0                 				sts UCSR0A, r16
                                  
-000198 9508                      				ret
+0001ad 9508                      				ret
                                  
                                  ;****************************************************************************************************
                                  ; procedura pošlje znak v r16 po UART
@@ -1509,15 +1523,15 @@ D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\m
                                  ;****************************************************************************************************
                                  				; poèakajmo, da bo oddajni vmesni pomnilnik na voljo
                                  send_char:		; takrat bo bit UDRE0 enak 1
-000199 930f                      				push r16				; spravi r16 na sklad, ker bomo po njem pacali 
+0001ae 930f                      				push r16				; spravi r16 na sklad, ker bomo po njem pacali 
                                  poskusi_poslati:
-00019a 9100 00c0                 				lds r16, UCSR0A
-00019c ff05                      				sbrs r16,UDRE0			; preskoèi naslednjo instrukcijo, èe je ta bit 1
-00019d cffc                      				rjmp poskusi_poslati	; bit še ni 1, skoèi nazaj na preverjanje
+0001af 9100 00c0                 				lds r16, UCSR0A
+0001b1 ff05                      				sbrs r16,UDRE0			; preskoèi naslednjo instrukcijo, èe je ta bit 1
+0001b2 cffc                      				rjmp poskusi_poslati	; bit še ni 1, skoèi nazaj na preverjanje
                                  									
-00019e 910f                      				pop r16					; daj podatek (r16) v vmesni pomnilnik za UART, 
-00019f 9300 00c6                 				sts UDR0,r16	
-0001a1 9508                      				ret
+0001b3 910f                      				pop r16					; daj podatek (r16) v vmesni pomnilnik za UART, 
+0001b4 9300 00c6                 				sts UDR0,r16	
+0001b6 9508                      				ret
                                  
                                  ;****************************************************************************************************
                                  ; procedura sprejme znak  po UART v r16
@@ -1525,12 +1539,12 @@ D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\m
                                  ;****************************************************************************************************
                                  
                                  get_char:		; poèakajmo, da bo znak prispel, bit RXC0 bo takrat 1
-0001a2 9100 00c0                 				lds r16, UCSR0A
-0001a4 ff07                      				sbrs r16, RXC0
-0001a5 cffc                      				rjmp get_char
+0001b7 9100 00c0                 				lds r16, UCSR0A
+0001b9 ff07                      				sbrs r16, RXC0
+0001ba cffc                      				rjmp get_char
                                  
-0001a6 9100 00c6                 				lds r16, UDR0
-0001a8 9508                      vrnise:			ret
+0001bb 9100 00c6                 				lds r16, UDR0
+0001bd 9508                      vrnise:			ret
                                  
                                  ;****************************************************************************************************
                                  ;  8-bitno deljenje z 10
@@ -1538,24 +1552,24 @@ D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\m
                                  ;
                                  ;****************************************************************************************************
                                  
-0001a9 920f                      div10_8bit:		push r0
-0001aa 921f                      				push r1
-0001ab 930f                      				push r16
-0001ac 9503                      				inc r16			; some magic
-0001ad f409                      				brne dobro
-0001ae 950a                      				dec r16
-0001af e313                      dobro:			ldi r17, 51		; more magic
-0001b0 9f01                      				mul r16, r17	; mind blown
-0001b1 9416                      				lsr r1			; r1 = r16/10 (celi del, seveda)
+0001be 920f                      div10_8bit:		push r0
+0001bf 921f                      				push r1
+0001c0 930f                      				push r16
+0001c1 9503                      				inc r16			; some magic
+0001c2 f409                      				brne dobro
+0001c3 950a                      				dec r16
+0001c4 e313                      dobro:			ldi r17, 51		; more magic
+0001c5 9f01                      				mul r16, r17	; mind blown
+0001c6 9416                      				lsr r1			; r1 = r16/10 (celi del, seveda)
                                  
-0001b2 2d01                      				mov r16, r1
-0001b3 e01a                      				ldi r17, 10
-0001b4 9e11                      				mul r1, r17
-0001b5 911f                      				pop r17
-0001b6 1910                      				sub r17, r0		; ostanek
-0001b7 901f                      				pop r1
-0001b8 900f                      				pop r0				
-0001b9 9508                      				ret				; confused?
+0001c7 2d01                      				mov r16, r1
+0001c8 e01a                      				ldi r17, 10
+0001c9 9e11                      				mul r1, r17
+0001ca 911f                      				pop r17
+0001cb 1910                      				sub r17, r0		; ostanek
+0001cc 901f                      				pop r1
+0001cd 900f                      				pop r0				
+0001ce 9508                      				ret				; confused?
                                  
                                  ;****************************************************************************************************
                                  ;  izpiši 8-bitno število kot ascii
@@ -1565,130 +1579,130 @@ D:\2. letnik\racunalnistvo\projekt\AssemblerApplication2\AssemblerApplication2\m
                                  ;****************************************************************************************************
                                  
                                  print_8bit_base10:
-0001ba 932f                      				push r18			; pacamo po r18
-0001bb 2f21                      				mov r18, r17
-0001bc 2711                      				clr r17
-0001bd 931f                      				push r17
+0001cf 932f                      				push r18			; pacamo po r18
+0001d0 2f21                      				mov r18, r17
+0001d1 2711                      				clr r17
+0001d2 931f                      				push r17
                                  naslednja_cifra:					; najprej izracunamo stevke in jih damo na stack
-0001be 940e 01a9                 				call div10_8bit		; r16 = r16 / 10, r17 je ostanek
-0001c0 6310                      				ori r17, 0x30		; naredimo iz njega ASCII cifro (npr. 2 => 0x32 = '2')
-0001c1 931f                      				push r17			; ker je ostanke potrebno izpisati v obratnem vrstnem redu
-0001c2 952a                      				dec r18				; jih damo na sklad, vendar samo toliko cifer max, kot je bilo podano
-0001c3 f7d1                      				brne naslednja_cifra	; èe imamo dovolj števk, nehamo
+0001d3 940e 01be                 				call div10_8bit		; r16 = r16 / 10, r17 je ostanek
+0001d5 6310                      				ori r17, 0x30		; naredimo iz njega ASCII cifro (npr. 2 => 0x32 = '2')
+0001d6 931f                      				push r17			; ker je ostanke potrebno izpisati v obratnem vrstnem redu
+0001d7 952a                      				dec r18				; jih damo na sklad, vendar samo toliko cifer max, kot je bilo podano
+0001d8 f7d1                      				brne naslednja_cifra	; èe imamo dovolj števk, nehamo
                                  							
-0001c4 910f                      izpisi_cifre:   pop r16
-0001c5 2b00                      				or r16, r16			; zadnja cifra je ascii NULL (=0x00)
-0001c6 f019                      				breq konec_izpisa
-0001c7 940e 0199                 				call send_char
-0001c9 cffa                      				rjmp izpisi_cifre
+0001d9 910f                      izpisi_cifre:   pop r16
+0001da 2b00                      				or r16, r16			; zadnja cifra je ascii NULL (=0x00)
+0001db f019                      				breq konec_izpisa
+0001dc 940e 01ae                 				call send_char
+0001de cffa                      				rjmp izpisi_cifre
                                  
-0001ca 912f                      konec_izpisa:	pop r18				; popravimo r18 nazaj...
-0001cb 9508                      				ret
+0001df 912f                      konec_izpisa:	pop r18				; popravimo r18 nazaj...
+0001e0 9508                      				ret
                                  
                                  dump_registers:						; grda procedura... ampak deluje.. :p
-0001cc 93ff                      				push r31
-0001cd 93ef                      				push r30
-0001ce 93df                      				push r29
-0001cf 93cf                      				push r28
-0001d0 93bf                      				push r27
-0001d1 93af                      				push r26
-0001d2 939f                      				push r25
-0001d3 938f                      				push r24
-0001d4 937f                      				push r23
-0001d5 936f                      				push r22
-0001d6 935f                      				push r21
-0001d7 934f                      				push r20
-0001d8 933f                      				push r19
-0001d9 932f                      				push r18
-0001da 931f                      				push r17
-0001db 930f                      				push r16
-0001dc 92ff                      				push r15
-0001dd 92ef                      				push r14
-0001de 92df                      				push r13
-0001df 92cf                      				push r12
-0001e0 92bf                      				push r11
-0001e1 92af                      				push r10
-0001e2 929f                      				push r9
-0001e3 928f                      				push r8
-0001e4 927f                      				push r7
-0001e5 926f                      				push r6
-0001e6 925f                      				push r5
-0001e7 924f                      				push r4				
-0001e8 923f                      				push r3
-0001e9 922f                      				push r2
-0001ea 921f                      				push r1
-0001eb 920f                      				push r0
+0001e1 93ff                      				push r31
+0001e2 93ef                      				push r30
+0001e3 93df                      				push r29
+0001e4 93cf                      				push r28
+0001e5 93bf                      				push r27
+0001e6 93af                      				push r26
+0001e7 939f                      				push r25
+0001e8 938f                      				push r24
+0001e9 937f                      				push r23
+0001ea 936f                      				push r22
+0001eb 935f                      				push r21
+0001ec 934f                      				push r20
+0001ed 933f                      				push r19
+0001ee 932f                      				push r18
+0001ef 931f                      				push r17
+0001f0 930f                      				push r16
+0001f1 92ff                      				push r15
+0001f2 92ef                      				push r14
+0001f3 92df                      				push r13
+0001f4 92cf                      				push r12
+0001f5 92bf                      				push r11
+0001f6 92af                      				push r10
+0001f7 929f                      				push r9
+0001f8 928f                      				push r8
+0001f9 927f                      				push r7
+0001fa 926f                      				push r6
+0001fb 925f                      				push r5
+0001fc 924f                      				push r4				
+0001fd 923f                      				push r3
+0001fe 922f                      				push r2
+0001ff 921f                      				push r1
+000200 920f                      				push r0
                                  
-0001ec b7fe                      				in ZH, SPH
-0001ed b7ed                      				in ZL, SPL
-0001ee e220                      				ldi r18, 32		; 32 registrov na skladu
-0001ef 2733                      				clr r19			; števec registrov
-0001f0 9101                      				ld r16, Z+		; vrednost na vrhu skladu nima pomena
+000201 b7fe                      				in ZH, SPH
+000202 b7ed                      				in ZL, SPL
+000203 e220                      				ldi r18, 32		; 32 registrov na skladu
+000204 2733                      				clr r19			; števec registrov
+000205 9101                      				ld r16, Z+		; vrednost na vrhu skladu nima pomena
                                  naslednji_register:
-0001f1 e702                      				ldi r16, 'r'
-0001f2 940e 0199                 				call send_char
+000206 e702                      				ldi r16, 'r'
+000207 940e 01ae                 				call send_char
                                  
-0001f4 2f03                      				mov r16, r19
-0001f5 9533                      				inc r19
-0001f6 e012                      				ldi r17, 2
-0001f7 940e 01ba                 				call print_8bit_base10
+000209 2f03                      				mov r16, r19
+00020a 9533                      				inc r19
+00020b e012                      				ldi r17, 2
+00020c 940e 01cf                 				call print_8bit_base10
                                  
-0001f9 e30a                      				ldi r16, ':'
-0001fa 940e 0199                 				call send_char
+00020e e30a                      				ldi r16, ':'
+00020f 940e 01ae                 				call send_char
                                  
-0001fc 9101                      				ld r16, Z+
-0001fd 940e 0177                 				call send_hex
-0001ff e200                      				ldi r16,0x20
-000200 940e 0199                 				call send_char
-000202 940e 0199                 				call send_char
+000211 9101                      				ld r16, Z+
+000212 940e 018c                 				call send_hex
+000214 e200                      				ldi r16,0x20
+000215 940e 01ae                 				call send_char
+000217 940e 01ae                 				call send_char
                                  
-000204 2f03                      				mov r16, r19
-000205 7007                      				andi r16, 0x07
-000206 f441                      				brne no_new_line
+000219 2f03                      				mov r16, r19
+00021a 7007                      				andi r16, 0x07
+00021b f441                      				brne no_new_line
                                  
-000207 e00d                      				ldi r16, 0x0d
-000208 940e 0199                 				call send_char
-00020a e00a                      				ldi r16, 0x0a
-00020b 940e 0199                 				call send_char
-00020d 940e 0199                 				call send_char
+00021c e00d                      				ldi r16, 0x0d
+00021d 940e 01ae                 				call send_char
+00021f e00a                      				ldi r16, 0x0a
+000220 940e 01ae                 				call send_char
+000222 940e 01ae                 				call send_char
                                  
-00020f 952a                      no_new_line:	dec r18
-000210 f701                      				brne naslednji_register
+000224 952a                      no_new_line:	dec r18
+000225 f701                      				brne naslednji_register
                                  
-000211 900f                      				pop r0
-000212 901f                      				pop r1
-000213 902f                      				pop r2
-000214 903f                      				pop r3
-000215 904f                      				pop r4
-000216 905f                      				pop r5
-000217 906f                      				pop r6
-000218 907f                      				pop r7
-000219 908f                      				pop r8
-00021a 909f                      				pop r9
-00021b 90af                      				pop r10
-00021c 90bf                      				pop r11
-00021d 90cf                      				pop r12
-00021e 90df                      				pop r13
-00021f 90ef                      				pop r14
-000220 90ff                      				pop r15
-000221 910f                      				pop r16
-000222 911f                      				pop r17
-000223 912f                      				pop r18
-000224 913f                      				pop r19
-000225 914f                      				pop r20
-000226 915f                      				pop r21
-000227 916f                      				pop r22
-000228 917f                      				pop r23
-000229 918f                      				pop r24
-00022a 919f                      				pop r25
-00022b 91af                      				pop r26
-00022c 91bf                      				pop r27
-00022d 91cf                      				pop r28
-00022e 91df                      				pop r29
-00022f 91ef                      				pop r30
-000230 91ff                      				pop r31
+000226 900f                      				pop r0
+000227 901f                      				pop r1
+000228 902f                      				pop r2
+000229 903f                      				pop r3
+00022a 904f                      				pop r4
+00022b 905f                      				pop r5
+00022c 906f                      				pop r6
+00022d 907f                      				pop r7
+00022e 908f                      				pop r8
+00022f 909f                      				pop r9
+000230 90af                      				pop r10
+000231 90bf                      				pop r11
+000232 90cf                      				pop r12
+000233 90df                      				pop r13
+000234 90ef                      				pop r14
+000235 90ff                      				pop r15
+000236 910f                      				pop r16
+000237 911f                      				pop r17
+000238 912f                      				pop r18
+000239 913f                      				pop r19
+00023a 914f                      				pop r20
+00023b 915f                      				pop r21
+00023c 916f                      				pop r22
+00023d 917f                      				pop r23
+00023e 918f                      				pop r24
+00023f 919f                      				pop r25
+000240 91af                      				pop r26
+000241 91bf                      				pop r27
+000242 91cf                      				pop r28
+000243 91df                      				pop r29
+000244 91ef                      				pop r30
+000245 91ff                      				pop r31
                                  
-000231 9508                      				ret				; we are done here
+000246 9508                      				ret				; we are done here
                                  
                                  				.dseg
 000100                           StackHI:		.byte 1
@@ -1716,7 +1730,7 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 x  :   0 y  :   0 z  :   9 r0 :   5 r1 :   7 r2 :   2 r3 :   2 r4 :   2 
 r5 :   2 r6 :   2 r7 :   2 r8 :   2 r9 :   2 r10:   2 r11:   2 r12:   2 
-r13:   2 r14:   2 r15:   2 r16:  78 r17:  23 r18:  10 r19:   8 r20:   4 
+r13:   2 r14:   2 r15:   2 r16:  85 r17:  23 r18:  10 r19:   8 r20:   4 
 r21:  19 r22:   8 r23:   8 r24:   8 r25:   8 r26:   4 r27:   2 r28:   2 
 r29:   2 r30:   9 r31:   9 
 Registers used: 33 out of 35 (94.3%)
@@ -1727,12 +1741,12 @@ andi  :   3 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0
 brcc  :   0 brcs  :   2 break :   0 breq  :  20 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
 brne  :  12 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :  47 cbi   :   0 cbr   :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :  54 cbi   :   0 cbr   :   0 
 clc   :  12 clh   :   0 cli   :   0 cln   :   0 clr   :   5 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
 cpi   :  21 cpse  :   0 dec   :   6 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   2 inc   :   7 jmp   :   0 
-ld    :   2 ldd   :   0 ldi   :  44 lds   :   3 lpm   :   7 lsl   :   0 
+ld    :   2 ldd   :   0 ldi   :  51 lds   :   3 lpm   :   7 lsl   :   0 
 lsr   :   1 mov   :   4 movw  :   0 mul   :   2 muls  :   0 mulsu :   0 
 neg   :   0 nop   :   1 or    :   1 ori   :   1 out   :   7 pop   :  39 
 push  :  40 rcall :   0 ret   :   9 reti  :   0 rjmp  :  30 rol   :   0 
@@ -1746,7 +1760,7 @@ Instructions used: 33 out of 113 (29.2%)
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000464    856    268   1124   32768   3.4%
+[.cseg] 0x000000 0x00048e    898    268   1166   32768   3.6%
 [.dseg] 0x000100 0x000102      0      2      2    2048   0.1%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
